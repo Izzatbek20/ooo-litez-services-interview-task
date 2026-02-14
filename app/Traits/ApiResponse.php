@@ -2,9 +2,11 @@
 
 namespace App\Traits;
 
+use Symfony\Component\HttpFoundation\Response;
+
 trait ApiResponse
 {
-    protected function success($data = null, $message = null, $code = 200)
+    protected function success($data = null, $message = null, $code = Response::HTTP_OK)
     {
         return response()->json([
             'success' => true,
@@ -13,7 +15,7 @@ trait ApiResponse
         ], $code);
     }
 
-    protected function error($message = null, $error = null, $code = 400)
+    protected function error($message = null, $error = null, $code = Response::HTTP_BAD_REQUEST)
     {
         return response()->json([
             'success' => false,
