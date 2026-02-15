@@ -42,7 +42,7 @@ final class ApiExceptionsHandler
 
     public function authenticationException(AuthenticationException $e): JsonResponse
     {
-        return $this->error('Siz tizimga kirishingiz kerak.', $e->getMessage(), Response::HTTP_UNAUTHORIZED);
+        return $this->error('Siz tizimga kirishingiz kerak.', ['message' => $e->getMessage()], Response::HTTP_UNAUTHORIZED);
     }
 
     public function validationException(ValidationException $e): JsonResponse
@@ -52,17 +52,17 @@ final class ApiExceptionsHandler
 
     public function notFoundHttpException(NotFoundHttpException $e): JsonResponse
     {
-        return $this->error('So‘ralgan resurs topilmadi.', $e->getMessage(), Response::HTTP_NOT_FOUND);
+        return $this->error('So‘ralgan resurs topilmadi.', ['message'=>$e->getMessage()], Response::HTTP_NOT_FOUND);
     }
 
     public function methodNotAllowedHttpException(MethodNotAllowedHttpException $e): JsonResponse
     {
-        return $this->error('Bu metod bu yo‘l uchun ruxsat etilmagan.', $e->getMessage(), Response::HTTP_METHOD_NOT_ALLOWED);
+        return $this->error('Bu metod bu yo‘l uchun ruxsat etilmagan.', ['message'=>$e->getMessage()], Response::HTTP_METHOD_NOT_ALLOWED);
     }
 
     public function httpException(HttpException $e): JsonResponse
     {
-        return $this->error('Xatolik yuz berdi.', $e->getMessage(), $e->getStatusCode());
+        return $this->error('Xatolik yuz berdi.', ['message'=>$e->getMessage()], $e->getStatusCode());
     }
 
     /**
@@ -78,7 +78,7 @@ final class ApiExceptionsHandler
 
         return match (true) {
             (config('app.env') == 'local' && config('app.debug') == true) => null,
-            (config('app.env') == 'local' && config('app.debug') == false) => $this->error('Serverda kutilmagan xatolik yuz berdi.', $this->serverErrorMessage($e), Response::HTTP_INTERNAL_SERVER_ERROR),
+            (config('app.env') == 'local' && config('app.debug') == false) => $this->error('Serverda kutilmagan xatolik yuz berdi.', ['message'=>$this->serverErrorMessage($e)], Response::HTTP_INTERNAL_SERVER_ERROR),
             default => $this->error('Serverda kutilmagan xatolik yuz berdi.', (config('app.debug') ? $this->serverErrorMessage($e) : null), Response::HTTP_INTERNAL_SERVER_ERROR),
         };
 
