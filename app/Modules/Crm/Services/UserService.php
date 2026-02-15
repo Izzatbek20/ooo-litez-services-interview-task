@@ -15,7 +15,7 @@ class UserService
 
         return User::query()->create([
             ...$userData,
-            'password' => Hash::make($userDTO->password)
+            'password' => Hash::make($userDTO->password),
         ]);
     }
 

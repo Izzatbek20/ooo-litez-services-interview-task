@@ -7,7 +7,7 @@ Route::get('/', function (Request $request) {
 
     return response()->json([
         'name' => config('app.name'),
-        'status' => 'OK'
+        'status' => 'OK',
     ]);
 
 });

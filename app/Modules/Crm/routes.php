@@ -2,7 +2,6 @@
 
 use App\Modules\Crm\Controllers\AuthController;
 use App\Modules\Crm\Controllers\ClientController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('api')

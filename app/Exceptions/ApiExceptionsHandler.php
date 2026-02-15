@@ -3,16 +3,16 @@
 namespace App\Exceptions;
 
 use App\Traits\ApiResponse;
-use Throwable;
+use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Auth\AuthenticationException;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 use Symfony\Component\HttpKernel\Exception\HttpException;
+use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Throwable;
 
 final class ApiExceptionsHandler
 {
@@ -20,7 +20,7 @@ final class ApiExceptionsHandler
 
     public static function handler(Exceptions $exceptions): void
     {
-        $cls = new self();
+        $cls = new self;
         $exceptions->render(function (Throwable $e, Request $request) use ($cls) {
             if ($request->is('api/*')) {
                 return $cls->renderApiError($e);
@@ -28,7 +28,7 @@ final class ApiExceptionsHandler
         });
     }
 
-    public function renderApiError(Throwable $e): JsonResponse|null
+    public function renderApiError(Throwable $e): ?JsonResponse
     {
         return match (true) {
             $e instanceof AuthenticationException => $this->authenticationException($e),
@@ -52,33 +52,30 @@ final class ApiExceptionsHandler
 
     public function notFoundHttpException(NotFoundHttpException $e): JsonResponse
     {
-        return $this->error('So‘ralgan resurs topilmadi.', ['message'=>$e->getMessage()], Response::HTTP_NOT_FOUND);
+        return $this->error('So‘ralgan resurs topilmadi.', ['message' => $e->getMessage()], Response::HTTP_NOT_FOUND);
     }
 
     public function methodNotAllowedHttpException(MethodNotAllowedHttpException $e): JsonResponse
     {
-        return $this->error('Bu metod bu yo‘l uchun ruxsat etilmagan.', ['message'=>$e->getMessage()], Response::HTTP_METHOD_NOT_ALLOWED);
+        return $this->error('Bu metod bu yo‘l uchun ruxsat etilmagan.', ['message' => $e->getMessage()], Response::HTTP_METHOD_NOT_ALLOWED);
     }
 
     public function httpException(HttpException $e): JsonResponse
     {
-        return $this->error('Xatolik yuz berdi.', ['message'=>$e->getMessage()], $e->getStatusCode());
+        return $this->error('Xatolik yuz berdi.', ['message' => $e->getMessage()], $e->getStatusCode());
     }
 
     /**
      * Serverda birorbir xatolik bo'lganida loyihani muhitiga qarab ikki xil ko'rinishda foydalanuvchiga ma'lumot qaytariladi.
      * Local muhitda, APP_DEBUG yoniq bo'lganida barcha xatoliklar standar Debug sahifasi orqali ko'rsatiladi.
      * Production muhitida barcha xatoliklarni JSON ko'rinishida qaytariladi.
-     *
-     * @param Throwable $e
-     * @return JsonResponse|null
      */
-    public function serverError(Throwable $e): JsonResponse|null
+    public function serverError(Throwable $e): ?JsonResponse
     {
 
         return match (true) {
             (config('app.env') == 'local' && config('app.debug') == true) => null,
-            (config('app.env') == 'local' && config('app.debug') == false) => $this->error('Serverda kutilmagan xatolik yuz berdi.', ['message'=>$this->serverErrorMessage($e)], Response::HTTP_INTERNAL_SERVER_ERROR),
+            (config('app.env') == 'local' && config('app.debug') == false) => $this->error('Serverda kutilmagan xatolik yuz berdi.', ['message' => $this->serverErrorMessage($e)], Response::HTTP_INTERNAL_SERVER_ERROR),
             default => $this->error('Serverda kutilmagan xatolik yuz berdi.', (config('app.debug') ? $this->serverErrorMessage($e) : null), Response::HTTP_INTERNAL_SERVER_ERROR),
         };
 

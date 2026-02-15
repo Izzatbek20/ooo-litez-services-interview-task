@@ -2,9 +2,7 @@
 
 namespace App\Modules\Crm\DTOs;
 
-use App\Modules\Crm\Enums\UserRoleEnum;
 use App\Modules\Crm\Models\User;
-use App\Modules\Crm\Requests\UserRegisterRequest;
 
 readonly class LoginOutputDTO
 {
@@ -12,8 +10,7 @@ readonly class LoginOutputDTO
         public User $user,
         public string $token,
         public string $token_type = 'Bearer',
-    ) {
-    }
+    ) {}
 
     public function toArray()
     {

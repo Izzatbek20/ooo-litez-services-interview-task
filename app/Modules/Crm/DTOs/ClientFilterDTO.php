@@ -3,15 +3,13 @@
 namespace App\Modules\Crm\DTOs;
 
 use App\Modules\Crm\Requests\ClientFilterRequest;
-use App\Modules\Crm\Requests\UserLoginRequest;
 
 readonly class ClientFilterDTO
 {
     public function __construct(
         public int $perPage,
         public int $page,
-    ) {
-    }
+    ) {}
 
     public static function fromRequest(ClientFilterRequest $clientFilterRequest): self
     {

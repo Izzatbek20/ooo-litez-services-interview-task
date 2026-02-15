@@ -6,7 +6,7 @@ use App\Modules\Crm\DTOs\ClientFilterDTO;
 use App\Modules\Crm\Models\Client;
 use Illuminate\Pagination\LengthAwarePaginator;
 
-class ClientService
+class TaskService
 {
     public function getAllWithPagination(ClientFilterDTO $clientFilterDTO): LengthAwarePaginator
     {

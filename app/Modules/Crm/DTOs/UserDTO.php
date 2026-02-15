@@ -12,8 +12,7 @@ readonly class UserDTO
         public string $email,
         public string $password,
         public ?UserRoleEnum $role,
-    ) {
-    }
+    ) {}
 
     public static function fromRequest(UserRegisterRequest $userRegister)
     {

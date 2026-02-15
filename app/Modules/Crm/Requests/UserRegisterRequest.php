@@ -3,7 +3,6 @@
 namespace App\Modules\Crm\Requests;
 
 use App\Modules\Crm\Enums\UserRoleEnum;
-use App\Traits\ApiValidationResponse;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -28,7 +27,7 @@ class UserRegisterRequest extends FormRequest
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'email', 'unique:users'],
             'password' => ['required', 'string', 'min:8'],
-            'role' => ['nullable', Rule::enum(UserRoleEnum::class)]
+            'role' => ['nullable', Rule::enum(UserRoleEnum::class)],
         ];
     }
 }

@@ -5,12 +5,12 @@ use App\Modules\Crm\Enums\TaskRecurrenceEnum;
 use App\Modules\Crm\Enums\TaskRemindViaEnum;
 use App\Modules\Crm\Enums\TaskStatusEnum;
 use App\Modules\Crm\Enums\TaskTypeEnum;
-use App\Modules\Crm\Models\Task;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration {
+return new class extends Migration
+{
     /**
      * Run the migrations.
      */
@@ -28,8 +28,8 @@ return new class extends Migration {
             $table->dateTime('deadline');
             $table->boolean('is_recurring')->default(false)->comment("Vazifa tugalangandan so'ng qayta takrorlanishi");
             $table->enum('recurrence_type', TaskRecurrenceEnum::cases())->nullable();
-            $table->integer('remind_before_minutes')->nullable()->comment("Muddatga N daqiqa qolganda eslatma yuborish.");
-            $table->enum('remind_via', TaskRemindViaEnum::cases())->nullable()->comment("Eslatma kanali");
+            $table->integer('remind_before_minutes')->nullable()->comment('Muddatga N daqiqa qolganda eslatma yuborish.');
+            $table->enum('remind_via', TaskRemindViaEnum::cases())->nullable()->comment('Eslatma kanali');
             $table->dateTime('reminder_sent_at')->nullable();
             $table->dateTime('completed_at')->nullable();
             $table->softDeletes();

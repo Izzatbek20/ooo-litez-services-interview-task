@@ -7,7 +7,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 trait ApiResponse
 {
-    protected function success(array $data, ?string $message, int $code = Response::HTTP_OK)
+    protected function success($data = null, $message = null, int $code = Response::HTTP_OK)
     {
         return response()->json([
             'success' => true,
@@ -16,7 +16,7 @@ trait ApiResponse
         ], $code);
     }
 
-    protected function successWithPagination(?JsonResource $resource, ?string $message, int $code = Response::HTTP_OK)
+    protected function successWithPagination(?JsonResource $resource, $message = null, int $code = Response::HTTP_OK)
     {
         $resource = $resource->response()->getData(true);
 
@@ -29,7 +29,7 @@ trait ApiResponse
         ], $code);
     }
 
-    protected function error(?string $message, ?array $errors, int $code = Response::HTTP_BAD_REQUEST)
+    protected function error($message = null, $errors = null, int $code = Response::HTTP_BAD_REQUEST)
     {
         return response()->json([
             'success' => false,

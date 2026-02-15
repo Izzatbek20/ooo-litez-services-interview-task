@@ -2,7 +2,6 @@
 
 namespace App\Modules\Crm\Requests;
 
-use App\Traits\ApiValidationResponse;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UserLoginRequest extends FormRequest

@@ -13,8 +13,8 @@ class AuthService
 {
     public function __construct(
         protected UserService $user_service
-    ) {
-    }
+    ) {}
+
     public function register(UserDTO $userDTO): User
     {
         return $this->user_service->create($userDTO);
@@ -24,14 +24,14 @@ class AuthService
     {
         $user = $this->user_service->findByEmail($loginInputDTO->email);
 
-        if (!$user || !Hash::check($loginInputDTO->password, $user->password)) {
+        if (! $user || ! Hash::check($loginInputDTO->password, $user->password)) {
             throw ValidationException::withMessages([
                 'email' => ['Login yoki parol noto‘g‘ri.'],
             ]);
         }
 
-        $token = $user->createToken("auth_token")->plainTextToken;
+        $token = $user->createToken('auth_token')->plainTextToken;
 
-        return (new LoginOutputDTO($user, $token));
+        return new LoginOutputDTO($user, $token);
     }
 }

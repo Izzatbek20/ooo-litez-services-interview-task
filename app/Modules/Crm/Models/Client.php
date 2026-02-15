@@ -11,7 +11,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 #[UseFactory(ClientFactory::class)]
 class Client extends Model
 {
-    use SoftDeletes, HasFactory;
+    use HasFactory, SoftDeletes;
+
     protected $fillable = [
         'name',
         'email',
