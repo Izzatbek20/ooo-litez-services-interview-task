@@ -2,7 +2,6 @@
 
 namespace App\Modules\Crm\Models;
 
-use App\Models\User;
 use App\Modules\Crm\Enums\TaskPriorityEnum;
 use App\Modules\Crm\Enums\TaskRecurrenceEnum;
 use App\Modules\Crm\Enums\TaskRemindViaEnum;
