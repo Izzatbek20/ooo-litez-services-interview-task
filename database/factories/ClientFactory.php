@@ -22,7 +22,7 @@ class ClientFactory extends Factory
         return [
             'name' => fake()->name(),
             'email' => fake()->email(),
-            'phone' => fake()->phoneNumber(),
+            'phone' => fake()->numerify('998#########'),
             'company' => fake()->company(),
         ];
     }
