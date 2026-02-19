@@ -18,7 +18,6 @@ class ClientController extends Controller
     {
 
         $filterDTO = ClientFilterDTO::fromRequest($clientFilterRequest);
-
         $clients = $this->client_service->getAllWithPagination($filterDTO);
 
         return $this->successWithPagination(ClientResource::collection($clients), 'Mijozlar ro\'yxati', code: Response::HTTP_OK);

@@ -20,7 +20,6 @@ class AuthController extends Controller
     {
 
         $userDto = UserDTO::fromRequest($userRegister);
-
         $user = $this->auth_service->register($userDto);
 
         return $this->success(new UserResource($user), 'Amalyot muvoffaqiyatli amalga oshirildi!', Response::HTTP_CREATED);
@@ -29,7 +28,6 @@ class AuthController extends Controller
     public function login(UserLoginRequest $userLoginRequest)
     {
         $loginData = new LoginInputDTO($userLoginRequest->email, $userLoginRequest->password);
-
         $result = $this->auth_service->login($loginData);
 
         return $this->success($result->toArray(), 'Tizimga kirish muvoffaqiyatli amalga oshirildi!');

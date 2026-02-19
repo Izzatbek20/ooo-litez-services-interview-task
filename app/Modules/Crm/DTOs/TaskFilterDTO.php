@@ -5,7 +5,6 @@ namespace App\Modules\Crm\DTOs;
 use App\Modules\Crm\Enums\TaskPriorityEnum;
 use App\Modules\Crm\Enums\TaskStatusEnum;
 use App\Modules\Crm\Enums\TaskTypeEnum;
-use App\Modules\Crm\Requests\ClientFilterRequest;
 use App\Modules\Crm\Requests\TaskFilterRequest;
 use Carbon\Carbon;
 
@@ -20,8 +19,7 @@ readonly class TaskFilterDTO
         public ?Carbon $date_to,
         public ?int $perPage,
         public ?string $cursor,
-    ) {
-    }
+    ) {}
 
     public static function fromRequest(TaskFilterRequest $taskFilterRequest): self
     {

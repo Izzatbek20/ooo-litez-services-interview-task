@@ -15,14 +15,12 @@ use App\Modules\Crm\Requests\TaskTodayFilterRequest;
 use App\Modules\Crm\Resources\TaskResource;
 use App\Modules\Crm\Services\TaskService;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class TaskController extends Controller
 {
     public function __construct(
         protected TaskService $taskService
-    ) {
-    }
+    ) {}
 
     public function all(TaskFilterRequest $taskFilterRequest)
     {

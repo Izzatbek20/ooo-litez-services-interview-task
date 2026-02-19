@@ -8,11 +8,8 @@ use App\Modules\Crm\DTOs\TaskStatusUpdateDTO;
 use App\Modules\Crm\DTOs\TaskStoreUpdateDTO;
 use App\Modules\Crm\DTOs\TaskTodayFilterDTO;
 use App\Modules\Crm\Models\Task;
-use Carbon\Carbon;
 use Illuminate\Contracts\Pagination\CursorPaginator;
-use Illuminate\Support\Collection;
 use Illuminate\Validation\ValidationException;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class TaskService
 {
@@ -56,7 +53,7 @@ class TaskService
         $task = Task::query()->findOrFail($id);
         $checkStatusChange = $task->status->checkChange($taskStatusUpdateDTO->status);
 
-        if (!$checkStatusChange) {
+        if (! $checkStatusChange) {
             throw ValidationException::withMessages(['status' => "Reja xolatini siz yuborgan xolatga almashtirib bo'lmaydi"]);
         }
 
