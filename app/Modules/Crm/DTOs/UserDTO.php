@@ -20,7 +20,7 @@ readonly class UserDTO
             name: $userRegister->name,
             email: $userRegister->email,
             password: $userRegister->password,
-            role: $userRegister?->enum('role', UserRoleEnum::class)
+            role: $userRegister->enum('role', UserRoleEnum::class)
         );
     }
 

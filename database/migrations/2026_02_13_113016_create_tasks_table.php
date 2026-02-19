@@ -24,7 +24,7 @@ return new class extends Migration
             $table->string('title');
             $table->text('description')->nullable();
             $table->enum('priority', TaskPriorityEnum::cases());
-            $table->enum('status', TaskStatusEnum::cases())->default('pending');
+            $table->enum('status', TaskStatusEnum::cases())->default(TaskStatusEnum::PENDING->value);
             $table->dateTime('deadline');
             $table->boolean('is_recurring')->default(false)->comment("Vazifa tugalangandan so'ng qayta takrorlanishi");
             $table->enum('recurrence_type', TaskRecurrenceEnum::cases())->nullable();

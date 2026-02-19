@@ -9,6 +9,7 @@ use App\Modules\Crm\Enums\TaskStatusEnum;
 use App\Modules\Crm\Enums\TaskTypeEnum;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Auth;
 
 class Task extends Model
 {
@@ -29,6 +30,11 @@ class Task extends Model
         'remind_via',
     ];
 
+    protected $attributes = [
+        'is_recurring' => false,
+        'status' => TaskStatusEnum::PENDING->value,
+    ];
+
     protected $casts = [
         'type' => TaskTypeEnum::class,
         'priority' => TaskPriorityEnum::class,
@@ -41,13 +47,20 @@ class Task extends Model
         'completed_at' => 'datetime',
     ];
 
+    public static function booted()
+    {
+        static::creating(function (Task $task) {
+            $task->user_id = Auth::id();
+        });
+    }
+
     public function user()
     {
-        $this->belongsTo(User::class);
+        return $this->belongsTo(User::class);
     }
 
     public function client()
     {
-        $this->belongsTo(Client::class);
+        return $this->belongsTo(Client::class);
     }
 }

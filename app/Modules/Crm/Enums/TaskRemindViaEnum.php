@@ -4,6 +4,6 @@ namespace App\Modules\Crm\Enums;
 
 enum TaskRemindViaEnum: string
 {
-    case DAILY = 'daily';
-    case WEEKLY = 'weekly';
+    case EMAIL = 'email';
+    case SMS = 'sms';
 }
