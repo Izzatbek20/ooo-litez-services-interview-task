@@ -7,15 +7,15 @@ use App\Modules\Crm\Requests\ClientFilterRequest;
 readonly class ClientFilterDTO
 {
     public function __construct(
-        public int $perPage,
-        public int $page,
+        public ?int $perPage,
+        public ?string $cursor,
     ) {}
 
-    public static function fromRequest(ClientFilterRequest $clientFilterRequest): self
+    public static function fromRequest(ClientFilterRequest $request): self
     {
         return new self(
-            $clientFilterRequest->query('perPage', 10),
-            $clientFilterRequest->query('page', 1),
+            $request->query('perPage', 10),
+            $request->query('cursor', null),
         );
     }
 
@@ -23,7 +23,7 @@ readonly class ClientFilterDTO
     {
         return [
             'perPage' => $this->perPage,
-            'page' => $this->page,
+            'cursor' => $this->cursor,
         ];
     }
 }

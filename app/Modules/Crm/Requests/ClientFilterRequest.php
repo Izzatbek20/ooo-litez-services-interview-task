@@ -23,7 +23,7 @@ class ClientFilterRequest extends FormRequest
     {
         return [
             'perPage' => ['nullable', 'integer'],
-            'page' => ['nullable', 'integer'],
+            'cursor' => ['nullable', 'string'],
         ];
     }
 }
